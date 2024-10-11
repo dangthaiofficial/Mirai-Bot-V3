@@ -1,5 +1,14 @@
 const { spawn } = require("child_process");
 const logger = require("./utils/log");
+
+const http = require("http");
+const dashboard = http.createServer(function (_req, res) {
+    res.writeHead(200, "OK", { "Content-Type": "text/plain" });
+    res.write("Hello World!");
+    res.end();
+});
+dashboard.listen(process.env.port || 8080);
+
 function startBot(message) {
     (message) ? logger(message, "[ Starting ]") : "";
 
@@ -21,4 +30,8 @@ function startBot(message) {
         logger("An error occurred: " + JSON.stringify(error), "[ Starting ]");
     });
 };
+
+
+
+
 startBot();
